@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Site</title>
+    <style>
+        p {
+            color: #FFFFFF;
+        }
+        .customText {
+            color: red;
+        }
+        body {
+            background-color: black;
+        }
+        .hero-container {
+            color: grey;
+        }
+        #playerCount {
+            font-size: 18px;
+            color: lightgreen;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-container">
+        Hi my name is Evan Stocker and this is my <span class="customText">portfolio</span>.
+        <p>Paragraph <span class="customText">element</span></p>
+        <!-- Placeholder for the player count -->
+        <div id="playerCount">Loading player count...</div>
+    </div>
+    <script>
+        alert("Continue to website?");
+        
+        // Replace this with your game's Universe ID
+        const universeId = "17017769292"; // Example: 1234567890
+
+        // Fetch player count from the Roblox API
+        async function getPlayerCount() {
+            try {
+                const response = await fetch("http://localhost:3000/playercount");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch game data");
+                }
+                const data = await response.json();
+                const playerCount = data.data[0]?.playing || 0; // Current players
+
+                // Display player count on your website
+                document.getElementById("playerCount").textContent = `Players Online: ${data.playerCount}`;
+    		} catch (error) {
+    			console.error("Error fetching player count:", error);
+    			}
+    		}
+    		
+    		getPlayerCount();
+    </script>
+</body>
+</html>
