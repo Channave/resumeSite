@@ -1,2 +1,14 @@
-
+# macOS system files
 .DS_Store
+
+# Visual Studio Code settings folder
+.vscode/
+
+# Node modules (if we use Node.js [long-term... not now!])
+node_modules/
+
+# Build / Dist folders (common pattern for many projects [long-term... not now!])
+dist/
+build/
+
+# Add any other files or folders you want to ignore below!
