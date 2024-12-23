@@ -1,0 +1,41 @@
+name: Deploy via ftp
+# Controls when the workflow will run
+on:
+  # Triggers the workflow for pull requests into dev or prod
+  push:
+    branches: [ dev, prod ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  #workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Deploy to Dev
+      if: startsWith(github.ref, 'refs/heads/dev')
+      uses: sebastianpopp/ftp-action@releases/v2
+      with:
+        host: ${{ secrets.FTP_SERVER }}
+        user: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        # personal (dev.evanstocker.com) and playground (dev.playground.evanstocker.com) lives in ./sites locally and is what we want deployed to the remoteDir ./stocker/sites
+        localDir: "./sites"
+        remoteDir: "/stocker/sites/dev"
+        delete: "true"
+
+    - name: Deploy to Prod
+      if: startsWith(github.ref, 'refs/heads/prod')
+      uses: sebastianpopp/ftp-action@releases/v2
+      with:
+        host: ${{ secrets.FTP_SERVER }}
+        user: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        # personal (evanstocker.com) and playground (playground.evanstocker.com) lives in ./sites locally and is what we want deployed to the remoteDir ./stocker/sites
+        localDir: "./sites"
+        remoteDir: "/stocker/sites/prod"        
+        delete: "true"
