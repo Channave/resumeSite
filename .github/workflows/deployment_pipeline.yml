@@ -20,7 +20,7 @@ jobs:
       if: startsWith(github.ref, 'refs/heads/dev')
       uses: sebastianpopp/ftp-action@releases/v2
       with:
-        host: ${{ secrets.FTP_SERVER }}
+        host: imperfectandcompany.com
         user: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         # personal (dev.evanstocker.com) and playground (dev.playground.evanstocker.com) lives in ./sites locally and is what we want deployed to the remoteDir ./stocker/sites
@@ -32,7 +32,7 @@ jobs:
       if: startsWith(github.ref, 'refs/heads/prod')
       uses: sebastianpopp/ftp-action@releases/v2
       with:
-        host: ${{ secrets.FTP_SERVER }}
+        host: imperfectandcompany.com
         user: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         # personal (evanstocker.com) and playground (playground.evanstocker.com) lives in ./sites locally and is what we want deployed to the remoteDir ./stocker/sites
